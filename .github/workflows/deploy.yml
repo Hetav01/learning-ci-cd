@@ -1,0 +1,20 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Deploy
+
+on:
+  push:     # this will be triggerred anytime there's a "merge" to the main branch
+    branches: [ "main" ]
+
+jobs:
+  deploy: # this is the job that will be run when the workflow is triggered (whenever there's a "merge" to the main branch)
+    runs-on: ubuntu-latest
+
+    # don't need to install dependencies or build the project, because we're using the built-in build step in the Dockerfile
+    steps:
+    - uses: actions/checkout@v4
+    - run: docker build . -t hetav123/learning-ci-cd
+    - run: echo "${{secrets.DOCKERHUB_PASSWORD}}" | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin
+    - run: docker push hetav123/learning-ci-cd:latest
+    
