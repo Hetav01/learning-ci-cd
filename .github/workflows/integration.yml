@@ -28,7 +28,7 @@ jobs:
         cache: 'npm'
     
     - name: Install dependencies
-      run: npm ci
+      run: npm i
     - name: Run build
       run: npm run build
 
@@ -50,7 +50,7 @@ jobs:
         cache: 'npm'
     
     - name: Install dependencies
-      run: npm ci
+      run: npm i
     
     - name: Running test cases
       run: npm run test
